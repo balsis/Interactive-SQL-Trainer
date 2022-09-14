@@ -235,3 +235,65 @@ FROM supply;
 
 SELECT * FROM book;
 ```
+
+**27. Добавление записей, вложенные запросы**
+```
+INSERT INTO book (title, author, price, amount) 
+SELECT title, author, price, amount 
+FROM supply
+WHERE title NOT IN (
+        SELECT title 
+        FROM book
+      );
+
+SELECT * FROM book;
+```
+**28. Запросы на обновление**
+```
+UPDATE book 
+SET price = 0.7 * price;
+
+SELECT * FROM book;
+```
+
+**29. Запросы на обновление нескольких столбцов**
+```
+UPDATE book 
+SET amount = amount - buy,
+    buy = 0;
+
+SELECT * FROM book;
+```
+
+**30. Запросы на обновление нескольких таблиц**
+```
+UPDATE book, supply 
+SET book.amount = book.amount + supply.amount
+WHERE book.title = supply.title AND book.author = supply.author;
+
+SELECT * FROM book;
+```
+
+**31. Запросы на удаление**
+```
+DELETE FROM supply 
+WHERE title IN (
+        SELECT title 
+        FROM book
+      );
+
+SELECT * FROM supply;
+```
+**32. Запросы на создание таблицы**
+
+```
+CREATE TABLE ordering AS
+SELECT author, title, 5 AS amount
+FROM book
+WHERE amount < 4;
+
+SELECT * FROM ordering;
+```
+
+
+
