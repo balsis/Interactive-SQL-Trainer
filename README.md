@@ -208,3 +208,30 @@ SELECT title, author, amount,
 FROM book
 WHERE abs(amount - (SELECT AVG(amount) FROM book)) >3;
 ```
+
+**24. Создание пустой таблицы**
+```
+CREATE TABLE supply (
+    supply_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
+    author VARCHAR(30),
+    price DECIMAL(8, 2),
+    amount INT
+);
+```
+**25. Добавление записей в таблицу**
+
+```
+INSERT INTO book (title, author, price, amount) 
+VALUES 
+    ('Война и мир','Толстой Л.Н.', 1070.20, 2),
+    ('Анна Каренина', 'Толстой Л.Н.', 599.90, 3);
+```
+**26. Добавление записей из другой таблицы**
+```
+INSERT INTO book (title, author, price, amount) 
+SELECT title, author, price, amount 
+FROM supply;
+
+SELECT * FROM book;
+```
