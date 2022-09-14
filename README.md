@@ -126,7 +126,7 @@ GROUP BY author;
 SELECT SUM(amount) AS Количество
 FROM book;
 ```
-**17.Выборка данных по условию, групповые функции**  
+**17. Выборка данных по условию, групповые функции**  
 В запросах с групповыми функциями вместо WHERE используется ключевое слово HAVING , которое размещается после оператора GROUP BY.  
 ```
 SELECT author,
@@ -166,4 +166,41 @@ WHERE price = (
          SELECT MIN(price) 
          FROM book
       );
+```
+**20. Использование вложенного запроса в выражении**
+```
+SELECT title, author, amount 
+FROM book
+WHERE ABS(amount - (SELECT AVG(amount) FROM book)) >3;
+```
+**21. Вложенный запрос, оператор IN**
+```
+SELECT title, author, amount, price
+FROM book
+WHERE author IN (
+        SELECT author 
+        FROM book 
+        GROUP BY author 
+        HAVING SUM(amount) >= 12
+      );
+```
+**22. Вложенный запрос, операторы ANY и ALL**
+```
+SELECT title, author, amount, price
+FROM book
+WHERE amount < ALL (
+        SELECT AVG(amount) 
+        FROM book 
+        GROUP BY author 
+      );
+```
+**23. Вложенный запрос после SELECT**
+```
+SELECT title, author, amount, 
+    (
+     SELECT AVG(amount) 
+     FROM book
+    ) AS Среднее_количество 
+FROM book
+WHERE abs(amount - (SELECT AVG(amount) FROM book)) >3;
 ```
