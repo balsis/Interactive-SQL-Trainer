@@ -175,7 +175,9 @@ SELECT title, author, amount
 FROM book
 WHERE ABS(amount - (SELECT AVG(amount) FROM book)) >3;
 ```
-**21. Вложенный запрос, оператор IN**
+**21. Вложенный запрос, оператор IN**  
+IN - определяет, совпадает ли значение столбца с одним из значений, содержащихся во вложенном запросе;  
+NOT IN - выражение истинно, если значение столбца не содержится во вложенном запросе.
 ```
 SELECT title, author, amount, price
 FROM book
