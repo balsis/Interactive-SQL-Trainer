@@ -11,3 +11,16 @@ FROM
     author INNER JOIN book
     ON author.author_id = book.author_id;
 ~~~~    
+
+**2. Внешнее соединение LEFT и RIGHT OUTER JOIN**  
+Результат запроса формируется так:
+
+* в результат включается внутреннее соединение (INNER JOIN) первой и второй таблицы в соответствии с условием;
+* затем в результат добавляются те записи первой таблицы, которые не вошли во внутреннее соединение на шаге 1, для таких записей соответствующие поля второй таблицы заполняются значениями NULL.
+
+~~~
+SELECT name_author, title 
+FROM author LEFT JOIN book
+     ON author.author_id = book.author_id
+ORDER BY name_author;  
+~~~
