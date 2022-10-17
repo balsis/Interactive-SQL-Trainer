@@ -24,3 +24,24 @@ FROM author LEFT JOIN book
      ON author.author_id = book.author_id
 ORDER BY name_author;  
 ~~~
+
+**3. Перекрестное соединение CROSS JOIN** 
+
+Результат запроса формируется так: каждая строка одной таблицы соединяется с каждой строкой другой таблицы, формируя  в результате все возможные сочетания строк двух таблиц.
+```
+SELECT name_author, name_genre
+FROM 
+    author, genre;
+```    
+**4. Запросы на выборку из нескольких таблиц** 
+
+```
+SELECT title, name_author, name_genre, price, amount
+FROM
+    author 
+    INNER JOIN  book ON author.author_id = book.author_id
+    INNER JOIN genre ON genre.genre_id = book.genre_id
+WHERE price BETWEEN 500 AND 700;
+
+```
+
